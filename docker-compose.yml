@@ -1,0 +1,23 @@
+version: '3.7'
+
+volumes:
+  database:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./data/mysql
+      o: bind
+
+services:
+  database:
+    image: mysql:9.0.1
+    restart: always
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_USER: 'bullqueue'
+      MYSQL_PASSWORD: 'bullqueue8723'
+      MYSQL_ROOT_PASSWORD: 'rootbullqueue845'
+      MYSQL_DATABASE: 'bullqueue'
+    volumes:
+      - database:/var/lib/mysql
