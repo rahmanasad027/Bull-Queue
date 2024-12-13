@@ -9,6 +9,7 @@ import { User } from 'src/models/user.entity';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from 'src/global/guards/auth.guard';
 import { JWTService } from './service/jwt.service';
+import { RequestContextService } from 'src/global/helper-services/request.context.service';
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { JWTService } from './service/jwt.service';
     },
     AuthService,
     JWTService,
+    RequestContextService,
   ],
-  exports: [AuthService],
+  exports: [AuthService, RequestContextService],
 })
 export class AuthModule {}

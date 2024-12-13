@@ -7,6 +7,12 @@ volumes:
       type: none
       device: ./data/mysql
       o: bind
+  redis:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./data/redis
+      o: bind
 
 services:
   database:
@@ -21,3 +27,12 @@ services:
       MYSQL_DATABASE: 'bullqueue'
     volumes:
       - database:/var/lib/mysql
+
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - 6379:6379
+    command: redis-server --loglevel warning
+    volumes:
+      - redis:/data

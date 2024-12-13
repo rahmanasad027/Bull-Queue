@@ -11,6 +11,9 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { AppConfigModule } from 'config.module';
 import { AppLoggerMiddleware } from './global/middlewares/app.logger.middleware';
+import { RequestContextService } from './global/helper-services/request.context.service';
+import { AuthGuard } from './global/guards/auth.guard';
+import { FileManagementModule } from './modules/file-management/file.management.module';
 
 @Module({
   imports: [
@@ -25,9 +28,11 @@ import { AppLoggerMiddleware } from './global/middlewares/app.logger.middleware'
     }),
     AuthModule,
     UserModule,
+    FileManagementModule,
   ],
   controllers: [AppController],
-  providers: [],
+  providers: [RequestContextService, AuthGuard],
+  exports: [RequestContextService],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer): void {

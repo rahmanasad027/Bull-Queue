@@ -22,12 +22,15 @@
     "migrate:empty": "typeorm migration:create ",
     "migrate:run": "nest build && typeorm migration:run -d dist/ormconfig.js --transaction each",
     "migrate:revert": "nest build && typeorm migration:revert -d dist/ormconfig.js --transaction",
+    "migrate:revert:all": "npm run migrate-revert-all",
+    "migrate-revert-all": "migrate-revert-all.bat",
     "seed": "nest build && node dist/src/database/seed.js",
     "db:dev:rm": "docker compose rm database -s -f -v",
     "db:dev:up": "docker compose up database -d",
     "db:dev:restart": "npm run db:dev:rm && npm run db:dev:up && timeout /t 1"
   },
   "dependencies": {
+    "@nestjs/bull": "^10.2.3",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.3.0",
     "@nestjs/core": "^10.0.0",
@@ -37,16 +40,19 @@
     "@nestjs/typeorm": "^10.0.2",
     "@types/passport-jwt": "^4.0.1",
     "bcrypt": "^5.1.1",
+    "bull": "^4.16.4",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
+    "moment": "^2.30.1",
     "mysql2": "^3.11.4",
     "nestjs-request-context": "^3.0.0",
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.20",
-    "typeorm-transactional": "^0.5.0"
+    "typeorm-transactional": "^0.5.0",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
@@ -55,6 +61,7 @@
     "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.2",
+    "@types/multer": "^1.4.12",
     "@types/node": "^20.3.1",
     "@types/supertest": "^6.0.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
@@ -68,7 +75,7 @@
     "supertest": "^7.0.0",
     "ts-jest": "^29.1.0",
     "ts-loader": "^9.4.3",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.1.3"
   },

@@ -1,7 +1,15 @@
 import { CommonEntity } from 'src/global/entities/common.entity';
-import { BeforeInsert, BeforeUpdate, Column, Entity, Index } from 'typeorm';
+import {
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  Entity,
+  Index,
+  OneToMany,
+} from 'typeorm';
 import { UserVerificationStatusEnum } from 'src/modules/user/enums/user.verification.status.enum';
 import * as bcrypt from 'bcrypt';
+import { File } from './file.entity';
 
 @Entity({ name: 'users' })
 export class User extends CommonEntity {
@@ -49,4 +57,7 @@ export class User extends CommonEntity {
     const isValid = await bcrypt.compare(password, this.password);
     return isValid;
   }
+
+  @OneToMany(() => File, (file) => file.uploadedBy)
+  files: File[];
 }
